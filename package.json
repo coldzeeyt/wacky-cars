@@ -1,0 +1,24 @@
+{
+  "name": "wacky-cars",
+  "version": "1.0.0",
+  "description": "Build-your-own-hills physics driving game.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --publish=never",
+    "build:win": "electron-builder --win --publish=never",
+    "build:mac": "electron-builder --mac --publish=never"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.coldzee.wackycars",
+    "productName": "Wacky Cars",
+    "files": ["docs/**", "electron/**"],
+    "win": { "target": "nsis" },
+    "mac": { "target": "dmg" },
+    "directories": { "output": "dist" }
+  }
+}

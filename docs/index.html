@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>WACKY CARS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="mode-menu">
+
+  <div id="stage"></div>
+
+  <!-- ===== MAIN MENU ===== -->
+  <div id="menu" class="screen menu">
+    <div id="nuts-display" class="nuts-display" aria-label="Lug nuts balance">🔩 <span id="nuts-count">1000</span></div>
+    <div id="boost-pill" class="boost-pill" hidden>🚀 BOOST ACTIVE</div>
+    <h1 class="menu-title"><span class="w1">WACKY</span><br><span class="w2">CARS</span></h1>
+    <p class="menu-tag">build the hills. survive them.</p>
+    <button id="btn-play" class="mbtn mbtn-start" type="button">PLAY</button>
+    <div class="mbtn-row">
+      <button id="btn-infinite" class="mbtn mbtn-creator" type="button">INFINITE</button>
+      <button id="btn-creator" class="mbtn mbtn-creator" type="button">CREATOR</button>
+      <button id="btn-cars" class="mbtn mbtn-creator" type="button">CARS &amp; COLORS</button>
+    </div>
+    <div class="mbtn-row">
+      <button id="btn-shop" class="mbtn mbtn-locked mbtn-small" type="button" disabled>
+        SHOP<span class="soon">SOON</span>
+      </button>
+      <button id="btn-codes" class="mbtn mbtn-creator mbtn-small" type="button">CODES</button>
+    </div>
+    <div class="mbtn-row">
+      <button id="btn-login" class="mbtn mbtn-locked mbtn-small" type="button" disabled>
+        LOG IN / SIGN UP<span class="soon">SOON</span>
+      </button>
+    </div>
+    <button id="btn-mute-menu" class="mute" type="button" aria-label="Toggle music">♪ music: on</button>
+    <button id="btn-dsg" class="dsg" type="button" aria-label="About Drumstick Games">dsg</button>
+    <button id="btn-updates" class="updates-btn" type="button" aria-label="What's new">v1.0</button>
+  </div>
+
+  <!-- ===== LEVEL SELECT ===== -->
+  <div id="levelselect" class="screen sheet">
+    <div class="sheet-head">
+      <button id="ls-back" class="chip" type="button">‹ Menu</button>
+      <h2 class="sheet-title">SELECT A MAP</h2>
+      <span class="sheet-spacer"></span>
+    </div>
+    <div id="levelselect-grid" class="lvl-grid"></div>
+  </div>
+
+  <!-- ===== CREATOR ===== -->
+  <div id="creator" class="screen sheet">
+    <div class="sheet-head">
+      <button id="cr-back" class="chip" type="button">‹ Menu</button>
+      <h2 class="sheet-title">CREATOR</h2>
+      <span class="sheet-spacer"></span>
+    </div>
+    <div class="cr-tabs">
+      <button id="tab-search" class="cr-tab active" type="button">Search</button>
+      <button id="tab-create" class="cr-tab" type="button">Create</button>
+    </div>
+
+    <div id="panel-search" class="cr-panel">
+      <div id="search-list" class="cr-list"></div>
+    </div>
+
+    <div id="panel-create" class="cr-panel" hidden>
+      <div class="cr-bar">
+        <input id="creator-search" class="cr-search" type="text" placeholder="Search your tracks…" />
+        <button id="btn-new-track" class="cr-new" type="button">＋ New track</button>
+      </div>
+      <div id="creator-list" class="cr-list"></div>
+    </div>
+  </div>
+
+  <!-- ===== CODES ===== -->
+  <div id="codes" class="screen sheet">
+    <div class="sheet-head">
+      <button id="codes-back" class="chip" type="button">‹ Menu</button>
+      <h2 class="sheet-title">CODES</h2>
+      <span class="sheet-spacer"></span>
+    </div>
+    <div class="codes-panel">
+      <p class="codes-sub">Got a code? Redeem it below for lug nuts. Each code only works once.</p>
+      <div class="codes-bar">
+        <input id="codes-input" class="cr-search" type="text" placeholder="Enter a code…" />
+        <button id="btn-redeem" class="cr-new" type="button">Redeem</button>
+      </div>
+      <p id="codes-msg" class="codes-msg"></p>
+    </div>
+  </div>
+
+  <!-- ===== CARS & COLORS ===== -->
+  <div id="cars" class="screen sheet">
+    <div class="sheet-head">
+      <button id="cars-back" class="chip" type="button">‹ Menu</button>
+      <h2 class="sheet-title">CARS &amp; COLORS</h2>
+      <span class="sheet-spacer"></span>
+    </div>
+    <div class="cars-panel">
+      <div class="cars-nuts">🔩 <span id="cars-nuts-count">1000</span></div>
+      <p class="cars-section-title">Car Type</p>
+      <div id="cars-cartype-grid" class="cars-grid"></div>
+      <p class="cars-section-title">Colors</p>
+      <div id="cars-colors-grid" class="cars-grid"></div>
+      <p class="cars-section-title">Wraps</p>
+      <div id="cars-wraps-grid" class="cars-grid"></div>
+      <p class="cars-section-title">Themes</p>
+      <div id="cars-themes-grid" class="cars-grid"></div>
+      <p id="cars-msg" class="codes-msg"></p>
+    </div>
+  </div>
+
+  <!-- ===== in-game brand ===== -->
+  <header class="brand"><h1>WACKY <span>CARS</span></h1></header>
+
+  <!-- ===== PLAY: completion bar (normal levels) or distance HUD (infinite) ===== -->
+  <div class="progress" id="progress-hud">
+    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+    <span id="progress-pct" class="progress-pct">0%</span>
+  </div>
+  <div class="infinite-hud" id="infinite-hud" hidden>
+    <span class="infinite-stat">Distance <b id="infinite-dist-val">0m</b></span>
+    <span class="infinite-stat">Best <b id="infinite-best-val">0m</b></span>
+  </div>
+  <div class="hud-actions">
+    <button id="btn-mute-hud" class="chip" type="button">♪</button>
+    <button id="btn-reset" class="chip" type="button">Reset</button>
+    <button id="btn-back-play" class="chip" type="button">Back</button>
+  </div>
+
+  <!-- driving controls -->
+  <button id="btn-brake" class="pedal pedal-left" type="button"><span>◀</span><label>brake</label></button>
+  <button id="btn-gas" class="pedal pedal-right" type="button"><label>gas</label><span>▶</span></button>
+
+  <!-- finish banner -->
+  <div id="finish" class="finish">
+    <div class="finish-card">
+      <p class="finish-title" id="finish-title-text">COMPLETE</p>
+      <p class="finish-line" id="finish-line">—</p>
+      <div class="finish-actions">
+        <button id="btn-retry" class="chip" type="button">Retry</button>
+        <button id="btn-back-finish" class="chip" type="button">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EDITOR DOCK ===== -->
+  <div class="dock">
+    <div class="dock-head">
+      <div class="dock-titles">
+        <input id="track-name" class="track-name" type="text" maxlength="28" placeholder="Track name" />
+        <p class="dock-sub" id="piece-count">empty track</p>
+      </div>
+      <div class="dock-tools">
+        <button id="btn-undo" class="chip" type="button">Undo</button>
+        <button id="btn-clear" class="chip" type="button">Clear</button>
+        <button id="btn-save" class="chip" type="button">Save</button>
+        <button id="btn-export" class="chip" type="button">Export</button>
+        <button id="btn-import" class="chip" type="button">Import</button>
+        <button id="btn-back-edit" class="chip" type="button">Back</button>
+      </div>
+    </div>
+    <div id="palette" class="palette"></div>
+    <div class="dock-foot">
+      <span id="save-flash" class="save-flash"></span>
+      <button id="btn-drive" class="play" type="button">DRIVE IT ▸</button>
+    </div>
+  </div>
+
+  <!-- ===== DRUMSTICK GAMES POPUP ===== -->
+  <div id="dsg-popup" class="popup">
+    <div class="popup-card">
+      <button id="dsg-close" class="popup-close" type="button" aria-label="Close">✕</button>
+      <p class="popup-brand">DRUMSTICK<br>GAMES</p>
+      <p class="popup-sub">wacky cars &amp; other experiments</p>
+      <div class="popup-links">
+        <a href="https://youtube.com/@drumstickgamess" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://drumstickgames.com" target="_blank" rel="noopener">Website ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== UPDATES POPUP ===== -->
+  <div id="updates-popup" class="popup">
+    <div class="popup-card updates-card">
+      <button id="updates-close" class="popup-close" type="button" aria-label="Close">✕</button>
+      <p class="popup-brand updates-brand">UPDATES</p>
+      <p class="popup-sub" id="updates-build">build 1.0</p>
+      <div id="updates-list" class="updates-list"></div>
+    </div>
+  </div>
+
+  <audio id="bgm" preload="auto"></audio>
+
+  <script src="js/lib/matter.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/pieces.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/economy.js"></script>
+  <script src="js/cosmetics.js"></script>
+  <script src="js/themes.js"></script>
+  <script src="js/cartype_sketch_data.js"></script>
+  <script src="js/cartypes.js"></script>
+  <script src="js/terrain.js"></script>
+  <script src="js/infinite.js"></script>
+  <script src="js/car.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
